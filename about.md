@@ -1,9 +1,8 @@
 ---
 layout: page
+title: Hello, World
 permalink: /about/
 ---
-
-# Hello, World
 
 I am a `vulnerability` hunter & researcher.
 
