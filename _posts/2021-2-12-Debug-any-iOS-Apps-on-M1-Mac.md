@@ -5,7 +5,7 @@ title: Debug any iOS Apps on M1 Mac
 
 # Background
 
-We have no __permission__ to attach the `lldb` to any other iOS Apps on the __M1 Mac__, when `SIP` is enabled. But it couldn’t launch the iOS Apps if `SIP` is disabled. It seems that `fairplayd` has a check for the system boot policy security mode and refuses to decrypt the iOS App macho when `SIP` is disabled.
+We have no __permission__ to attach the `lldb` to any other iOS Apps on the __M1 Mac__, when `SIP` is enabled. But we couldn’t launch the iOS Apps if `SIP` is disabled. It seems that `fairplayd` has a check for the system boot policy security mode and refuses to decrypt the iOS App macho when `SIP` is disabled.
 
 So the question is __how to debug__.
 
@@ -46,7 +46,7 @@ Next, I will talk about how I found the patch point and make it run normally.
 
 # posix_spawn internal
 
-From the previous termination reason, I just wonder why it can launch the iOS App macho normally without the __wrong platform error__, when we open it normally. Maybe it has some special spawn attributes for the iOS platform macho?
+From the previous termination reason, I just wonder why the OS can launch the iOS App macho normally without the __wrong platform error__, when we open it normally. Maybe it has some special spawn attributes for the iOS platform macho?
 
 To prove my guess, I looked up for the `posix_spawn` implementation from the latest `XNU` source code. And the answer is yes, there are some new `posix_spawn_attributes` in the function. In order to make use of these attributes,  I made a differece of the spawn related functions inside the module `libsystem_kernel.dylib` :
 
