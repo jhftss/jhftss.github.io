@@ -20,7 +20,7 @@ So the question is __how to debug__.
 - `posix_spawn` the iOS App macho with the `suspend` attribute
 - Attach my debugger
 
-# About resign
+# About re-sign
 
 It is said that only the decrypted IPA resigned with `Enrolled Apple Developer certificate ($99 per year)` is permitted to install and run. The key operation is adding the M1 Mac device's __UDID__ to the developer’s __device list__.
 
