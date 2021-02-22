@@ -149,7 +149,7 @@ Launch again, no __wrong platform error__ this time, but I got the crash log lik
 
 ![image-20210212211417214](../res/2021-2-12-Debug-any-iOS-Apps-on-M1-Mac/image-20210212211417214.png)
 
-This is because the sandbox failed to initialize. My first solution was simply to patch the function `_libsecinit_appsandbox` to return directly, then __the iOS App can run without sandbox restriction__. But I hope the iOS App could run inside the sandbox. So I tried to find out why the function `_libsecinit_appsandbox` fails to initialize. The function talks to the `secinitd` process by xpc pipe `com.apple.secinitd`. In the `secinitd` process, the API call `xpc_copy_entitlement_for_token` return __NULL__, and the parameter `token` is fetched from API `xpc_connection_get_audit_token`. While inspecting this thread, I found another thread from the console log, which seems closer to the root cause:
+This is because the sandbox failed to initialize. My first solution was simply to patch the function `_libsecinit_appsandbox` to return directly, then __the iOS App can run without sandbox restriction__. But I hope the iOS App could run inside the sandbox. So I tried to find out why the function `_libsecinit_appsandbox` fails to initialize. The function talks to the `secinitd` process by xpc pipe `com.apple.secinitd`. In the `secinitd` process, the API call `xpc_copy_entitlement_for_token` returned __NULL__. It failed in the syscall `csops_audittoken(pid, CS_OPS_ENTITLEMENTS_BLOB, ...)` with errno `EINVAL`. The syscall failed because the target process’s `p_csflags (struct proc offset 0x2d0)` is `0`, not flagged with `(CS_VALID | CS_DEBUGGED)`. The `CS_VALID` flag was not set due to failure of `load_code_signature`. `load_code_signature` called the function `vnode_check_signature` of  `AppleMobileFileIntegrity.kext`, and then `vnode_check_signature` called function `verify_code_directory` of the `amfid` process by `mach_msg_rpc_from_kernel_proper` to check the signature. Then I found another hint from the console log, which seems closer to the root cause:
 
 ![image-20210212215309892](../res/2021-2-12-Debug-any-iOS-Apps-on-M1-Mac/image-20210212215309892.png)
 
@@ -164,6 +164,18 @@ The key point is the function `MISValidateSignatureAndCopyInfo` , implemented in
 ![image-20210212221504797](../res/2021-2-12-Debug-any-iOS-Apps-on-M1-Mac/image-20210212221504797.png)
 
 I just patched the callback function at line `12`, to let it jump to line `40` directly. The patch is work and the sandbox could be initialized as usual.
+
+### Another solution
+
+Re-signing with free developer’s certificate seems __valid for only 7 days__. Therefore,  I also tried to re-sign it with `ad-hoc` , which has no time limitation. But it failed in the function `vnode_check_signature` of the `AppleMobileFileIntegrity.kext`, error string:
+
+“__unsuitable CT policy 0 for this platform/device, rejecting signature.__”
+
+Error occurred before the rpc call to `amfid` process.
+
+So I have to load a kext to patch it for this solution:
+
+![image-20210222144726077](../res/2021-2-12-Debug-any-iOS-Apps-on-M1-Mac/image-20210222144726077.png)
 
 # Patch to show iOS UI
 
