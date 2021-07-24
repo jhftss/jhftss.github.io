@@ -3,8 +3,6 @@ layout: post
 title: Install decrypted IPA on M1 Mac
 ---
 
-# Background
-
 As mentioned in my [last blog](https://jhftss.github.io/Debug-any-iOS-Apps-on-M1-Mac/), I can launch any decrypted iOS App on M1 Mac with __free developer certificate__. Here, I will try to install the decrypted IPA dircectly without re-signing.
 
 # Install directly

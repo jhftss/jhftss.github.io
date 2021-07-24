@@ -3,8 +3,6 @@ layout: post
 title: Debug any iOS Apps on M1 Mac
 ---
 
-# Background
-
 We have no __permission__ to attach the `lldb` to any other iOS Apps on the __M1 Mac__, when `SIP` is enabled. But we couldn’t launch the iOS Apps if `SIP` is disabled. It seems that `fairplayd` has a check for the system boot policy security mode and refuses to decrypt the iOS App macho when `SIP` is disabled.
 
 So the question is __how to debug__.

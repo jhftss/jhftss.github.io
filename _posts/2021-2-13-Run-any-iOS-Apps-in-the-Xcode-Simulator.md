@@ -3,8 +3,6 @@ layout: post
 title: Run any iOS Apps in the Xcode Simulator
 ---
 
-# Background
-
 Besides the method in my [last blog](https://jhftss.github.io/Debug-any-iOS-Apps-on-M1-Mac/), I keep trying other methods to run the decrypted iOS App. Then I thought of the __Xcode Simulator__, which had no possibility to run the real iOS Apps before, due to the `x86_64` platform restriction. But now, the __Simulator from M1 Mac__ is also the `arm64` architecture. Is it possible to run the decrypted iOS App in the simulator now ?
 
 __Of course, Yes Now !!!__
