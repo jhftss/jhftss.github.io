@@ -15,6 +15,7 @@ permalink: /blogs/
 | **2021-07-22** | [Updated XCSSET Malware Targets Telegram, Other Apps](https://www.trendmicro.com/en_us/research/21/g/updated-xcsset-malware-targets-telegram--other-apps.html) |
 | **2021-09-15** | [Analyzing The ForcedEntry Zero-Click iPhone Exploit Used By Pegasus](https://www.trendmicro.com/en_us/research/21/i/analyzing-pegasus-spywares-zero-click-iphone-exploit-forcedentry.html) |
 | **2022-01-14** | [Analyzing an Old Bug and Discovering CVE-2021-30995](https://www.trendmicro.com/en_us/research/22/a/analyzing-an-old-bug-and-discovering-cve-2021-30995-.html) |
+| **2022-04-04** | [MacOS SUHelper Root Privilege Escalation Vulnerability: A Deep Dive Into CVE-2022-22639](https://www.trendmicro.com/en_us/research/22/d/macos-suhelper-root-privilege-escalation-vulnerability-a-deep-di.html) |
 |                |                                                              |
 |                |                                                              |
 |                |                                                              |
