@@ -5,5 +5,5 @@ permalink: /about/
 
 
 
-__Mickey Jin ([@patch1t](https://twitter.com/patch1t)) of Trend Micro__
+Mickey Jin ([@patch1t](https://twitter.com/patch1t)), **an independent researcher** 
 
