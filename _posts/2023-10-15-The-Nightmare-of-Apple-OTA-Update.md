@@ -1,7 +1,6 @@
 ---
 layout: post
-title: The Nightmare of Apple's OTA Update: Bypassing the Signature Verification and Pwning the Kernel
-
+title: The Nightmare of Apple's OTA Update&#58; Bypassing the Signature Verification and Pwning the Kernel
 
 ---
 
