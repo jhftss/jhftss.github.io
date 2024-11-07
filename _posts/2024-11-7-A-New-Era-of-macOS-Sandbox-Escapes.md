@@ -4,7 +4,7 @@ title: A New Era of macOS Sandbox Escapes&#58; Diving into an Overlooked Attack 
 
 ---
 
-This is a blog post for my presentation at the conference [POC2024](https://powerofcommunity.net/2024.htm). The slides are uploaded here.
+This is a blog post for my presentation at the conference [POC2024](https://powerofcommunity.net/2024.htm). The slides are uploaded [here](https://github.com/jhftss/jhftss.github.io/blob/main/res/slides/A%20New%20Era%20of%20macOS%20Sandbox%20Escapes.pdf).
 
 In the macOS system, most processes are running in a restricted sandbox environment, whether they are Apple's own services or third-party applications. Consequently, once an attacker gains Remote Code Execution (RCE) from these processes, their capabilities are constrained. The next step for the attacker is to circumvent the sandbox to gain enhanced execution capabilities and broader file access permissions.
 
