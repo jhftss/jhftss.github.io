@@ -732,7 +732,7 @@ Apple patched the issue again in macOS 14.4 by hardening the second condition:
 
 ![image-20241020153333113](../res/2024-11-7-A-New-Era-of-macOS-Sandbox-Escapes/image-20241020153333113.png)
 
-From the new patch code, we can see that it requires the XPC client to not only be the **platform binary**, but also to be signed with the flags: “**CS_REQUIRE_LV | CS_FORCED_LV**”.
+From the new patch code, we can see that it requires the XPC client to not only be the **platform binary**, but also to be signed with the flag “**CS_REQUIRE_LV**” or “**CS_FORCED_LV**”.
 
 ### The bypass 2
 
@@ -1070,19 +1070,16 @@ If the input string is not a **valid UUID**, then it will exit the function.
 ### Summary
 
 - An overlooked attack surface
-
-- - System (private) frameworks’ XPC services (**PID Domain**)
+  - System (private) frameworks’ XPC services (**PID Domain**)
 
 - Drop a file/folder without being quarantined == Full Sandbox Escape
-
-- - File quarantine attribute lost during decompression == **Gatekeeper Bypass** == **Sandbox Escape**. E.g., [CVE-2021-30990](https://breakpoint.sh/posts/bypassing-the-macos-gatekeeper)
+  - File quarantine attribute lost during decompression == **Gatekeeper Bypass** == **Sandbox Escape**. E.g., [CVE-2021-30990](https://breakpoint.sh/posts/bypassing-the-macos-gatekeeper)
 
 - A few sandbox escape vulnerabilities and the exploits
-
-- - And more?
-
-  - - There are 5 reports still in the patching queue
+  - And more?
+    - There are 5 reports still in the patching queue
     - Find your own sandbox escape vulnerabilities :P
+
 
 ### One More Thing
 
@@ -1100,9 +1097,9 @@ I can understand why Apple thinks this is an expected behavior. Because the newl
 
 - The **App Sandbox**: dropped files are quarantined **by default**.
 - The **Service Sandbox**: dropped files are **not quarantined by default.**
-- - - Not a flaw: The newly launched process is **not in the current service execution context**, and thus can’t share the entitlements/privileges of the current service.
-    - It’s a flaw: Once an attacker get the remote code execution (RCE) in a sandbox-restricted service context (e.g., **IMTranscoderAgent, 0-click exploited by NSO Group**), he can drop and launch a new non-sandboxed application to get rid of the sandbox restriction of the target service (**IMTranscoderAgent**). 
-    - e.g., “`com.apple.WebDriver.HTTPService.xpc`" calls the API “**WBSEnableSandboxStyleFileQuarantine**” manually.
+  - Not a flaw: The newly launched process is **not in the current service execution context**, and thus can’t share the entitlements/privileges of the current service.
+  - It’s a flaw: Once an attacker get the remote code execution (RCE) in a sandbox-restricted service context (e.g., **IMTranscoderAgent, 0-click exploited by NSO Group**), he can drop and launch a new non-sandboxed application to get rid of the sandbox restriction of the target service (**IMTranscoderAgent**). 
+  - e.g., “`com.apple.WebDriver.HTTPService.xpc`" calls the API “**WBSEnableSandboxStyleFileQuarantine**” manually.
 
 - Escape from the **App Sandbox** to the **Service Sandbox** == **Non Sandbox** (**macOS Only**)
 
